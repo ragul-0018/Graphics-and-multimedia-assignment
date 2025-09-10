@@ -1,32 +1,49 @@
+# Midpoint Circle Algorithm
 
 import matplotlib.pyplot as plt
 
-x0 = int(input("Enter x0: "))
-y0 = int(input("Enter y0: "))
-x1 = int(input("Enter x1: "))
-y1 = int(input("Enter y1: "))
+x0=int(input("Enter x0:"))
+y0=int(input("Enter y0:"))
+r=int(input("Enter Radius:"))
 
-dx = x1 - x0
-dy = y1 - y0
-steps = max(abs(dx), abs(dy))
-x_inc = dx / steps
-y_inc = dy / steps
+p = 1 - r
 
-x = x0
-y = y0
+x=0
+y=r
 
-x_points = []
-y_points = []
+x_points=[]
+y_points=[]
 
-for i in range(steps + 1):
-    x_points.append(round(x))
-    y_points.append(round(y))
-    x += x_inc
-    y += y_inc
+x_points.extend([x+x0,x+x0,-x+x0,-x+x0,y+x0,y+x0,-y+x0,-y+x0])
+    
+y_points.extend([y+y0,-y+y0,y+y0,-y+y0,x+y0,-x+y0,x+y0,-x+y0])
 
-plt.plot(x_points, y_points, marker='o')
-plt.title("Line drawn using DDA Algorithm")
+while(x<y):
+    if(p<0):
+        p=p+(2*(x+1))+1
+        x=x+1
+    else:
+        p=p+(2*(x+1))+1-(2*(y-1))
+        x=x+1
+        y=y-1
+        
+    x_points.extend([x+x0,x+x0,-x+x0,-x+x0,y+x0,y+x0,-y+x0,-y+x0])
+    
+    y_points.extend([y+y0,-y+y0,y+y0,-y+y0,x+y0,-x+y0,x+y0,-x+y0])
+    
+    #print("(",x,",",y,")")
+
+
+
+plt.plot(x_points,y_points,'s')
+plt.plot(x0,y0,'ro')
+plt.title("Midpoint Circle Algorithm")
 plt.xlabel("X-axis")
 plt.ylabel("Y-axis")
 plt.grid(True)
 plt.show()
+
+
+# x_points.extend([x+x0,x+x0,-x+x0,-x+x0,y+x0,y+x0,-y+x0,-y+x0])
+    
+# y_points.extend([y+y0,-y+y0,y+y0,-y+y0,x+y0,-x+y0,x+y0,-x+y0])
